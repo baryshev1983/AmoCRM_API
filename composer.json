@@ -1,0 +1,32 @@
+{
+	"name": "AmoCMS API library",
+	"description": "Библиотека для работы с API AmoCMS",
+	"version": "1.0",
+	"type": "library",
+	"license": "GPL-3.0",
+	"authors": [
+	    {
+	  	    "name": "Artur Sh. Mamedbekov",
+	  	    "email": "Artur-Mamedbekov@yandex.ru",
+	  	    "homepage": "https://bashka.github.io"
+	    }
+	],
+	"require": {
+		"psr/http-message-implementation": "~1.0.0",
+		"zendframework/zend-diactoros": "^1.3.0",
+		"php-http/curl-client": "^1.6.0"
+	},
+	"autoload": {
+	    "psr-4": {
+	  	    "AmoCMSAPI\\": "src/"
+	    }
+	},
+	"require-dev": {
+	    "phpunit/phpunit": "*"
+	},
+	"autoload-dev": {
+	    "psr-4": {
+	  	    "AmoCMSAPITest\\": "test/"
+	    }
+	}
+}
