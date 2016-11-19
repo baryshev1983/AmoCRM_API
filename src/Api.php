@@ -89,6 +89,9 @@ class Api{
     )->withHeader('Cookie', 'session_id=' . $this->auth->getSsid());
     $response = $this->httpClient->sendRequest($request);
     $responseBody = json_decode($response->getBody()->getContents());
+    if(is_null($responseBody) || !property_exists($responseBody->response, $prop)){
+      return;
+    }
     
     $responseData = [];
     if(property_exists($responseBody->response->$prop, 'add')){
