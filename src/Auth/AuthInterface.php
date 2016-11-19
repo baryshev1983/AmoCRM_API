@@ -1,8 +1,8 @@
 <?php
-namespace AmoCMSAPI\Auth;
+namespace AmoCRMAPI\Auth;
 
-use AmoCMSAPI\User\UserInterface;
-use AmoCMSAPI\Auth\Exception\UnauthorizedException;
+use AmoCRMAPI\User\UserInterface;
+use AmoCRMAPI\Auth\Exception\UnauthorizedException;
 
 /**
  * @author Artur Sh. Mamedbekov

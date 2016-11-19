@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI;
+namespace AmoCRMAPI;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

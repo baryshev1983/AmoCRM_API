@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\Lead;
+namespace AmoCRMAPI\Lead;
 
 /**
  * @author Artur Sh. Mamedbekov

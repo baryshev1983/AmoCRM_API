@@ -1,7 +1,7 @@
 <?php
-namespace AmoCMSAPI\Tag;
+namespace AmoCRMAPI\Tag;
 
-use AmoCMSAPI\JsonDecodableInterface;
+use AmoCRMAPI\JsonDecodableInterface;
 
 interface TagInterface extends JsonDecodableInterface{
   /**

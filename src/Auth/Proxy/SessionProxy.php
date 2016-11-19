@@ -1,8 +1,8 @@
 <?php
-namespace AmoCMSAPI\Auth\Proxy;
+namespace AmoCRMAPI\Auth\Proxy;
 
-use AmoCMSAPI\Auth\AuthInterface;
-use AmoCMSAPI\User\UserInterface;
+use AmoCRMAPI\Auth\AuthInterface;
+use AmoCRMAPI\User\UserInterface;
 
 /**
  * @author Artur Sh. Mamedbekov

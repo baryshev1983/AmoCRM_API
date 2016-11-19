@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI;
+namespace AmoCRMAPI;
 
 use Http\Client\HttpClient;
 

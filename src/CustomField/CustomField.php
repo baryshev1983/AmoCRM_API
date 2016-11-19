@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\CustomField;
+namespace AmoCRMAPI\CustomField;
 
 class CustomField implements CustomFieldInterface{
   /**

@@ -1,7 +1,7 @@
 <?php
-namespace AmoCMSAPI\Account;
+namespace AmoCRMAPI\Account;
 
-use AmoCMSAPI\JsonDecodableInterface;
+use AmoCRMAPI\JsonDecodableInterface;
 
 /**
  * @author Artur Sh. Mamedbekov

@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI;
+namespace AmoCRMAPI;
 
 interface JsonDecodableInterface{
   /**

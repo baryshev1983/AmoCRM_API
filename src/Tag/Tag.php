@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\Tag;
+namespace AmoCRMAPI\Tag;
 
 class Tag implements TagInterface{
   /**

@@ -1,10 +1,10 @@
 <?php
-namespace AmoCMSAPITest;
+namespace AmoCRMAPITest;
 
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
 use Zend\Diactoros\Request;
-use AmoCMSAPI\CurlClient;
+use AmoCRMAPI\CurlClient;
 
 /**
  * @author Artur Sh. Mamedbekov

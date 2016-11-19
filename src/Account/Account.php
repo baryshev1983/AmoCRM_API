@@ -1,11 +1,11 @@
 <?php
-namespace AmoCMSAPI\Account;
+namespace AmoCRMAPI\Account;
 
-use AmoCMSAPI\User\User;
-use AmoCMSAPI\CustomField\CustomField;
-use AmoCMSAPI\CustomField\CustomFieldIterator;
-use AmoCMSAPI\Lead\Status as LeadStatus;
-use AmoCMSAPI\Lead\StatusIterator as LeadStatusIterator;
+use AmoCRMAPI\User\User;
+use AmoCRMAPI\CustomField\CustomField;
+use AmoCRMAPI\CustomField\CustomFieldIterator;
+use AmoCRMAPI\Lead\Status as LeadStatus;
+use AmoCRMAPI\Lead\StatusIterator as LeadStatusIterator;
 
 class Account implements AccountInterface{
   private $id;

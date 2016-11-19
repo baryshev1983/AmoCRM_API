@@ -1,10 +1,10 @@
 <?php
-namespace AmoCMSAPITest\CustomField;
+namespace AmoCRMAPITest\CustomField;
 
-use AmoCMSAPI\CustomField\CustomField;
-use AmoCMSAPI\CustomField\CustomFieldType;
-use AmoCMSAPI\CustomField\ElementType;
-use AmoCMSAPI\CustomField\Value;
+use AmoCRMAPI\CustomField\CustomField;
+use AmoCRMAPI\CustomField\CustomFieldType;
+use AmoCRMAPI\CustomField\ElementType;
+use AmoCRMAPI\CustomField\Value;
 
 /**
  * @author Artur Sh. Mamedbekov

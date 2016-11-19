@@ -1,14 +1,14 @@
 <?php
-namespace AmoCMSAPI; 
+namespace AmoCRMAPI; 
 
-use AmoCMSAPI\Auth\AuthInterface;
-use AmoCMSAPI\Auth\Auth;
-use AmoCMSAPI\Auth\Proxy\SessionProxy as SessionProxyAuth;
-use AmoCMSAPI\User\UserInterface;
-use AmoCMSAPI\Account\Account;
-use AmoCMSAPI\Contact\Contact;
-use AmoCMSAPI\Lead\Lead;
-use AmoCMSAPI\Task\Task;
+use AmoCRMAPI\Auth\AuthInterface;
+use AmoCRMAPI\Auth\Auth;
+use AmoCRMAPI\Auth\Proxy\SessionProxy as SessionProxyAuth;
+use AmoCRMAPI\User\UserInterface;
+use AmoCRMAPI\Account\Account;
+use AmoCRMAPI\Contact\Contact;
+use AmoCRMAPI\Lead\Lead;
+use AmoCRMAPI\Task\Task;
 
 /**
  * @author Artur Sh. Mamedbekov

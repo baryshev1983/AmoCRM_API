@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\Contact;
+namespace AmoCRMAPI\Contact;
 
 /**
  * @author Artur Sh. Mamedbekov

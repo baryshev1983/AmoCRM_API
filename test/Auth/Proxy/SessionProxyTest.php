@@ -1,12 +1,12 @@
 <?php
-namespace AmoCMSAPITest\Auth\Proxy;
+namespace AmoCRMAPITest\Auth\Proxy;
 
-use AmoCMSAPI\CurlClient;
-use AmoCMSAPI\User\UserInterface;
-use AmoCMSAPI\User\User;
-use AmoCMSAPI\Auth\AuthInterface;
-use AmoCMSAPI\Auth\Auth;
-use AmoCMSAPI\Auth\Proxy\SessionProxy;
+use AmoCRMAPI\CurlClient;
+use AmoCRMAPI\User\UserInterface;
+use AmoCRMAPI\User\User;
+use AmoCRMAPI\Auth\AuthInterface;
+use AmoCRMAPI\Auth\Auth;
+use AmoCRMAPI\Auth\Proxy\SessionProxy;
 
 /**
  * @author Artur Sh. Mamedbekov

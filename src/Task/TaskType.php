@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\Task;
+namespace AmoCRMAPI\Task;
 
 /**
  * @author Artur Sh. Mamedbekov

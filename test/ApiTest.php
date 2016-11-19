@@ -1,17 +1,17 @@
 <?php
-namespace AmoCMSAPITest;
+namespace AmoCRMAPITest;
 
-use AmoCMSAPI\Api;
-use AmoCMSAPI\User\User;
-use AmoCMSAPI\CurlClient;
-use AmoCMSAPI\CustomField\CustomField;
-use AmoCMSAPI\CustomField\CustomFieldType;
-use AmoCMSAPI\CustomField\ElementType;
-use AmoCMSAPI\CustomField\Value;
-use AmoCMSAPI\Tag\Tag;
-use AmoCMSAPI\Contact\Contact;
-use AmoCMSAPI\Contact\ContactType;
-use AmoCMSAPI\Lead\Lead;
+use AmoCRMAPI\Api;
+use AmoCRMAPI\User\User;
+use AmoCRMAPI\CurlClient;
+use AmoCRMAPI\CustomField\CustomField;
+use AmoCRMAPI\CustomField\CustomFieldType;
+use AmoCRMAPI\CustomField\ElementType;
+use AmoCRMAPI\CustomField\Value;
+use AmoCRMAPI\Tag\Tag;
+use AmoCRMAPI\Contact\Contact;
+use AmoCRMAPI\Contact\ContactType;
+use AmoCRMAPI\Lead\Lead;
 
 /**
  * @author Artur Sh. Mamedbekov

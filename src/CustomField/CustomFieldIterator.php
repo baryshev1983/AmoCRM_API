@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\CustomField;
+namespace AmoCRMAPI\CustomField;
 
 /**
  * @author Artur Sh. Mamedbekov

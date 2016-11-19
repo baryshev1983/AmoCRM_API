@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\User;
+namespace AmoCRMAPI\User;
 
 /**
  * @author Artur Sh. Mamedbekov

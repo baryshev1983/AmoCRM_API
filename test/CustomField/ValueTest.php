@@ -1,7 +1,7 @@
 <?php
-namespace AmoCMSAPITest\CustomField;
+namespace AmoCRMAPITest\CustomField;
 
-use AmoCMSAPI\CustomField\Value;
+use AmoCRMAPI\CustomField\Value;
 
 /**
  * @author Artur Sh. Mamedbekov

@@ -1,5 +1,5 @@
 <?php
-namespace AmoCMSAPI\Auth\Exception;
+namespace AmoCRMAPI\Auth\Exception;
 
 /**
  * Ошибка авторизации.

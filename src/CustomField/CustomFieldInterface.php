@@ -1,7 +1,7 @@
 <?php
-namespace AmoCMSAPI\CustomField;
+namespace AmoCRMAPI\CustomField;
 
-use AmoCMSAPI\JsonDecodableInterface;
+use AmoCRMAPI\JsonDecodableInterface;
 
 /**
  * @author Artur Sh. Mamedbekov

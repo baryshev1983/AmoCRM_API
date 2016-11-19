@@ -1,8 +1,8 @@
 <?php
-namespace AmoCMSAPI\Contact;
+namespace AmoCRMAPI\Contact;
 
-use AmoCMSAPI\Tag\Tag;
-use AmoCMSAPI\CustomField\CustomField;
+use AmoCRMAPI\Tag\Tag;
+use AmoCRMAPI\CustomField\CustomField;
 
 /**
  * @author Artur Sh. Mamedbekov
