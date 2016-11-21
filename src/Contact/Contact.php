@@ -3,6 +3,7 @@ namespace AmoCRMAPI\Contact;
 
 use AmoCRMAPI\Tag\Tag;
 use AmoCRMAPI\CustomField\CustomField;
+use AmoCRMAPI\Lead\LeadInterface;
 
 /**
  * @author Artur Sh. Mamedbekov
@@ -13,7 +14,7 @@ class Contact implements ContactInterface{
   private $name;
   private $type;
   private $companyName;
-  private $leadsId;
+  private $leadIds;
   private $tags;
   private $customFields;
   private $creatorId;
@@ -21,6 +22,9 @@ class Contact implements ContactInterface{
   private $updated;
 
   public function __construct(){
+    $this->leadIds = [];
+    $this->tags = [];
+    $this->customFields = [];
     $this->added = new \DateTime;
     $this->updated = new \DateTime;
   }
@@ -51,6 +55,9 @@ class Contact implements ContactInterface{
     }
     if(property_exists($json, 'last_modified')){
       $value->setUpdated(new \DateTime('@' . $json->last_modified));
+    }
+    if(property_exists($json, 'linked_leads_id')){
+      $value->setLeadIds($json->linked_leads_id);
     }
     if(property_exists($json, 'tags')){
       $value->setTags(array_map(function($jsonTag){
@@ -128,7 +135,16 @@ class Contact implements ContactInterface{
   /**
    * {@inheritdoc}
    */
-  public function getLeadsId(){
+  public function setLeadIds(array $leadIds){
+    $this->leadIds = $leadIds;
+  }
+
+  public function addLead(LeadInterface $lead){
+    $this->leadIds[] = $lead->getId();
+  }
+  
+  public function getLeadIds(){
+    return $this->leadIds;
   }
 
   /**
@@ -202,6 +218,9 @@ class Contact implements ContactInterface{
       $json['company_name'] = $this->getCompanyName();
     }
     $json['last_modified'] = $this->getUpdated()->getTimestamp();
+    if(count($leadIds = $this->getLeadIds())){
+      $json['linked_leads_id'] = $leadIds;
+    }
     if(count($tags = $this->getTags())){
       $json['tags'] = array_map(function($tag){
         return $tag->getName();

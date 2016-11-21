@@ -22,7 +22,7 @@ interface ContactInterface extends \JsonSerializable, JsonDecodableInterface{
 
   public function getCompanyName();
 
-  public function getLeadsId();
+  public function getLeadIds();
 
   public function getTags();
 

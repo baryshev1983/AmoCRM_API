@@ -3,6 +3,7 @@ namespace AmoCRMAPITest;
 
 use AmoCRMAPI\Api;
 use AmoCRMAPI\User\User;
+use AmoCRMAPI\Auth\Auth;
 use AmoCRMAPI\CurlClient;
 use AmoCRMAPI\CustomField\CustomField;
 use AmoCRMAPI\CustomField\CustomFieldType;
@@ -113,7 +114,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase{
     $api = $this->createApi();
   
     $account = $api->getAccount();
-  
   
     $leads = [];
     $lead = new Lead;
