@@ -195,13 +195,15 @@ class Lead implements LeadInterface{
       $json['created_user_id'] = $this->getCreatorId();
     }
     $json['last_modified'] = $this->getUpdated()->getTimestamp();
-    if(count($tags = $this->getTags())){
+    $tags = $this->getTags();
+    if(is_array($tags) && count($tags) > 0){
       $json['tags'] = array_map(function($tag){
         return $tag->getName();
       }, $tags);
       $json['tags'] = implode(',', $json['tags']);
     }
-    if(count($customFields = $this->getCustomFields())){
+    $customFields = $this->getCustomFields();
+    if(is_array($customFields) && count($customFields) > 0){
       $json['custom_fields'] = $this->getCustomFields();
     }
 
