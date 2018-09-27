@@ -31,23 +31,27 @@ class Api{
     return new self($httpClient, new SessionProxyAuth($auth));
   }
 
-  private function getEntities($method, $limit, $offset, $responseProp, $entityClass){
-    $request = $this->httpClient->createRequest($method, 'GET', [
-      'limit_rows' => $limit,
-      'limit_offset' => $offset,
-    ])->withHeader('Cookie', 'session_id=' . $this->auth->getSsid());
-    $response = $this->httpClient->sendRequest($request);
-    $responseBody = json_decode($response->getBody()->getContents());
-    if(is_null($responseBody) || !property_exists($responseBody->response, $responseProp)){
-      return [];
-    }
+	private function getEntities($method, $params, $limit, $offset, $responseProp, $entityClass)
+	{
+		$data = [
+			'limit_rows' => $limit,
+			'limit_offset' => $offset,
+		];
+
+		$request = $this->httpClient->createRequest($method, 'GET', array_merge($data, $params))->withHeader('Cookie', 'session_id=' . $this->auth->getSsid());
+		$response = $this->httpClient->sendRequest($request);
+		$responseBody = json_decode($response->getBody()->getContents());
+
+		if (is_null($responseBody) || !property_exists($responseBody->response, $responseProp)) {
+			return [];
+		}
 
     $result = [];
     foreach($responseBody->response->$responseProp as $json){
       $result[] = $entityClass::jsonDecode($json);
     }
     return $result;
-  }
+	}
 
   private function getEntity($method, $id, $responseProp, $entityClass){
     $request = $this->httpClient->createRequest($method, 'GET', [
@@ -138,8 +142,8 @@ class Api{
 		$this->saveEntities('/private/api/v2/json/pipelines/set', $pipelines, 'pipelines');
   }
 
-  public function getContacts($limit = 500, $offset = 0){
-    return $this->getEntities('/private/api/v2/json/contacts/list', $limit, $offset, 'contacts', Contact::class);
+  public function getContacts($limit = 500, $offset = 0, $params = []){
+    return $this->getEntities('/private/api/v2/json/contacts/list', $params, $limit, $offset, 'contacts', Contact::class);
   }
 
   public function getContact($id){
@@ -150,8 +154,8 @@ class Api{
     $this->saveEntities('/private/api/v2/json/contacts/set', $contacts, 'contacts');
   }
 
-  public function getLeads($limit = 500, $offset = 0){
-    return $this->getEntities('/private/api/v2/json/leads/list', $limit, $offset, 'leads', Lead::class);
+  public function getLeads($limit = 500, $offset = 0, $params = []){
+    return $this->getEntities('/private/api/v2/json/leads/list', $params, $limit, $offset, 'leads', Lead::class);
   }
 
   public function getLead($id){
@@ -162,8 +166,8 @@ class Api{
     $this->saveEntities('/private/api/v2/json/leads/set', $leads, 'leads');
   }
 
-  public function getTasks($limit = 500, $offset = 0){
-    return $this->getEntities('/private/api/v2/json/tasks/list', $limit, $offset, 'tasks', Task::class);
+  public function getTasks($limit = 500, $offset = 0, $params = []){
+    return $this->getEntities('/private/api/v2/json/tasks/list', $params, $limit, $offset, 'tasks', Task::class);
   }
 
   public function getTask($id){
