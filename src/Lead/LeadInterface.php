@@ -13,6 +13,8 @@ interface LeadInterface extends \JsonSerializable, JsonDecodableInterface{
 
   public function getName();
 
+  public function getPipelineId();
+
   public function getStatusId();
 
   public function getPrice();

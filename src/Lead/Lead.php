@@ -11,6 +11,7 @@ class Lead implements LeadInterface{
   private $id;
   private $requestId;
   private $name;
+  private $pipelineId;
   private $statusId;
   private $price;
   private $responsibleId;
@@ -37,6 +38,9 @@ class Lead implements LeadInterface{
     }
     if(property_exists($json, 'name')){
       $value->setName($json->name);
+    }
+    if(property_exists($json, 'pipeline_id')){
+      $value->setPipelineId((int) $json->pipeline_id);
     }
     if(property_exists($json, 'status_id')){
       $value->setStatusId((int) $json->status_id);
@@ -96,6 +100,14 @@ class Lead implements LeadInterface{
   
   public function getName(){
     return $this->name;
+  }
+
+  public function setPipelineId($pipelineId){
+    $this->pipelineId = $pipelineId;
+  }
+  
+  public function getPipelineId(){
+    return $this->pipelineId;
   }
 
   public function setStatusId($statusId){
@@ -181,6 +193,9 @@ class Lead implements LeadInterface{
     }
     if(!is_null($this->getName())){
       $json['name'] = $this->getName();
+    }
+    if(!is_null($this->getPipelineId())){
+      $json['pipeline_id'] = $this->getPipelineId();
     }
     if(!is_null($this->getStatusId())){
       $json['status_id'] = $this->getStatusId();
