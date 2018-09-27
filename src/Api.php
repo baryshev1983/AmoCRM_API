@@ -6,6 +6,7 @@ use AmoCRMAPI\Auth\Auth;
 use AmoCRMAPI\Auth\Proxy\SessionProxy as SessionProxyAuth;
 use AmoCRMAPI\User\UserInterface;
 use AmoCRMAPI\Account\Account;
+use AmoCRMAPI\Pipeline\Pipeline;
 use AmoCRMAPI\Contact\Contact;
 use AmoCRMAPI\Lead\Lead;
 use AmoCRMAPI\Task\Task;
@@ -41,9 +42,11 @@ class Api{
       return [];
     }
 
-    return array_map(function($json) use($entityClass){
-      return $entityClass::jsonDecode($json);
-    }, $responseBody->response->$responseProp);
+    $result = [];
+    foreach($responseBody->response->$responseProp as $json){
+      $result[] = $entityClass::jsonDecode($json);
+    }
+    return $result;
   }
 
   private function getEntity($method, $id, $responseProp, $entityClass){
@@ -125,6 +128,14 @@ class Api{
 
   public function saveCustomFields(array $customFields){
     $this->saveEntities('/private/api/v2/json/fields/set', $customFields, 'fields');
+  }
+
+  public function getPipelines(){
+		return $this->getEntities('/private/api/v2/json/pipelines/list', [], 500, 0, 'pipelines', Pipeline::class);
+  }
+
+  public function savePipelines(array $pipelines){
+		$this->saveEntities('/private/api/v2/json/pipelines/set', $pipelines, 'pipelines');
   }
 
   public function getContacts($limit = 500, $offset = 0){
