@@ -38,6 +38,13 @@ class Auth implements AuthInterface{
   public function setUser(UserInterface $user){
     $this->user = $user;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUser(){
+    return $this->user;
+  }
   
   /**
    * {@inheritdoc}

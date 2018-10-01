@@ -6,6 +6,8 @@ use Http\Client\HttpClient;
 interface ClientInterface extends HttpClient{
   public function setSubdomain($subdomain);
 
+  public function getSubdomain();
+
   public function createUri($targetMethodUrl);
 
   /**

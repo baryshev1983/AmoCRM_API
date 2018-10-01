@@ -14,6 +14,11 @@ interface AuthInterface{
   public function setUser(UserInterface $user);
 
   /**
+   * @return UserInterface
+   */
+  public function getUser();
+
+  /**
    * @throws UnauthorizedException Выбрасывается в случае ошибки при попытке 
    * авторизации.
    *

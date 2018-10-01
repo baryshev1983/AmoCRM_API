@@ -1,6 +1,8 @@
 <?php
 namespace AmoCRMAPI; 
 
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Stream;
 use AmoCRMAPI\Auth\AuthInterface;
 use AmoCRMAPI\Auth\Auth;
 use AmoCRMAPI\Auth\Proxy\SessionProxy as SessionProxyAuth;
@@ -10,6 +12,8 @@ use AmoCRMAPI\Pipeline\Pipeline;
 use AmoCRMAPI\Contact\Contact;
 use AmoCRMAPI\Lead\Lead;
 use AmoCRMAPI\Task\Task;
+use AmoCRMAPI\Incoming\IncomingInterface;
+use AmoCRMAPI\Incoming\Incoming;
 
 /**
  * @author Artur Sh. Mamedbekov
@@ -42,12 +46,22 @@ class Api{
 		$response = $this->httpClient->sendRequest($request);
 		$responseBody = json_decode($response->getBody()->getContents());
 
-		if (is_null($responseBody) || !property_exists($responseBody->response, $responseProp)) {
+    if(!$responseBody){
 			return [];
 		}
 
+    if(property_exists($responseBody, 'response')){
+      $responseItems = $responseBody->response;
+    }
+    elseif(property_exists($responseBody, '_embedded')){
+      $responseItems = $responseBody->_embedded;
+    }
+    else{
+      return [];
+    }
+
     $result = [];
-    foreach($responseBody->response->$responseProp as $json){
+    foreach($responseItems->$responseProp as $json){
       $result[] = $entityClass::jsonDecode($json);
     }
     return $result;
@@ -176,5 +190,156 @@ class Api{
 
   public function saveTasks(array $tasks){
     $this->saveEntities('/private/api/v2/json/tasks/set', $tasks, 'tasks');
+  }
+
+  public function getIncomings($limit = 500, $offset = 0, $params = []){
+    return $this->getEntities(
+      '/api/v2/incoming_leads',
+      array_merge(
+        $params,
+        [
+          'login' => $this->auth->getUser()->getLogin(),
+          'api_key' => $this->auth->getUser()->getHash(),
+        ]
+      ),
+      $limit,
+      $offset,
+      'items',
+      Incoming::class
+    );
+  }
+
+  /**
+   * Добавляет заявки в неразобранное. Все заявки должны быть одной категории.
+   */
+  public function saveIncomings(array $incomings){
+    if(count($incomings) == 0){
+      return;
+    }
+
+    $uri = '';
+    switch($incomings[0]->getCategory()){
+      case IncomingInterface::CATEGORY_SIP:
+        $uri = '/api/v2/incoming_leads/sip';
+        break;
+      case IncomingInterface::CATEGORY_FORM:
+        $uri = '/api/v2/incoming_leads/form';
+        break;
+      default:
+        return;
+    }
+
+    $body = new Stream('php://temp', 'w+');
+    $body->write(
+      http_build_query([
+        'add' => json_decode(json_encode($incomings), true)
+      ])
+    );
+    $request = new Request(
+      sprintf(
+        'https://%s.amocrm.ru%s?%s',
+        $this->httpClient->getSubdomain(),
+        $uri,
+        http_build_query([
+          'login' => $this->auth->getUser()->getLogin(),
+          'api_key' => $this->auth->getUser()->getHash(),
+        ])
+      ),
+      'POST',
+      $body,
+      [
+        'Cookie' => 'session_id=' . $this->auth->getSsid(),
+      ]
+    );
+		$response = $this->httpClient->sendRequest($request);
+		$responseBody = json_decode($response->getBody()->getContents(), true);
+		if (is_null($responseBody) || !isset($responseBody['data'])) {
+			return;
+		}
+
+    foreach($responseBody['data'] as $i => $uid){
+      $incomings[$i]->setUid($uid);
+    }
+  }
+
+  /**
+   * @param string[] $uids Идентификаторы принимаемых заявок.
+   * @param int $userId Идентификатор пользователя, от имени которого будет 
+   * принята заявка.
+   * @param int $statusId Идентификатор этапа, в которых будут созданы принятые 
+   * сделки.
+   *
+   * @return array Созданные из заявки сущности. Структура:
+   * {
+   *   uid: {
+   *     contacts: [contactId, ...],
+   *     leads: [leadId, ...],
+   *     companies: [companyId, ...]
+   *   },
+   *   ...
+   * }
+   */
+  public function acceptIncoming(array $uids, $userId, $statusId){
+    $body = new Stream('php://temp', 'w+');
+    $body->write(
+      http_build_query([
+        'accept' => $uids,
+        'user_id' => $userId,
+        'status_id' => $statusId,
+      ])
+    );
+    $request = new Request(
+      sprintf(
+        'https://%s.amocrm.ru/api/v2/incoming_leads/accept?%s',
+        $this->httpClient->getSubdomain(),
+        http_build_query([
+          'login' => $this->auth->getUser()->getLogin(),
+          'api_key' => $this->auth->getUser()->getHash(),
+        ])
+      ),
+      'POST',
+      $body,
+      [
+        'Cookie' => 'session_id=' . $this->auth->getSsid(),
+      ]
+    );
+		$response = $this->httpClient->sendRequest($request);
+		$responseBody = json_decode($response->getBody()->getContents(), true);
+		if (is_null($responseBody) || !isset($responseBody['data'])) {
+			return;
+		}
+
+    return $responseBody['data'];
+  }
+
+  /**
+   * @param string[] $uids Идентификаторы отклоняемых заявок.
+   * @param int $userId Идентификатор пользователя, от имени которого будет 
+   * отклонена заявка.
+   */
+  public function declineIncoming(array $uids, $userId){
+    $body = new Stream('php://temp', 'w+');
+    $body->write(
+      http_build_query([
+        'decline' => $uids,
+        'user_id' => $userId,
+      ])
+    );
+    $request = new Request(
+      sprintf(
+        'https://%s.amocrm.ru/api/v2/incoming_leads/decline?%s',
+        $this->httpClient->getSubdomain(),
+        http_build_query([
+          'login' => $this->auth->getUser()->getLogin(),
+          'api_key' => $this->auth->getUser()->getHash(),
+        ])
+      ),
+      'POST',
+      $body,
+      [
+        'Cookie' => 'session_id=' . $this->auth->getSsid(),
+      ]
+    );
+		$this->httpClient->sendRequest($request);
   }
 }

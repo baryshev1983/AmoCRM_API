@@ -37,6 +37,10 @@ class CurlClient implements ClientInterface{
     $this->subdomain = $subdomain;
   }
 
+  public function getSubdomain(){
+    return $this->subdomain;
+  }
+
   // Factories
   /**
    * @return UriInterface

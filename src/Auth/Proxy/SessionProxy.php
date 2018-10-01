@@ -34,6 +34,13 @@ class SessionProxy implements AuthInterface{
   /**
    * {@inheritdoc}
    */
+  public function getUser(){
+    return $this->auth->getUser();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getSsid(){
     if(is_null($this->ssid)){
       $this->ssid = $this->auth->getSsid();
