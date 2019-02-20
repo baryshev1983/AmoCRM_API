@@ -115,11 +115,15 @@ class Api{
     }
     
     $responseData = [];
-    if(property_exists($responseBody->response->$prop, 'add')){
-      $responseData = array_merge($responseData, $responseBody->response->$prop->add);
+    if(property_exists($responseBody->response->$prop, 'add')
+        && !empty($responseBody->response->$prop->add)
+    ){
+      $responseData = array_merge($responseData, (array)$responseBody->response->$prop->add);
     }
-    if(property_exists($responseBody->response->$prop, 'update')){
-      $responseData = array_merge($responseData, $responseBody->response->$prop->update);
+    if(property_exists($responseBody->response->$prop, 'update')
+        && !empty($responseBody->response->$prop->update)
+    ){
+      $responseData = array_merge($responseData, (array)$responseBody->response->$prop->update);
     }
     array_walk($responseData, function($data) use(&$requestIndex){
       if(!property_exists($data, 'request_id') || !isset($requestIndex[(int) $data->request_id])){
